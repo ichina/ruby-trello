@@ -432,6 +432,14 @@ module Trello
       end
     end
 
+    # Set text to Custom Value of this card
+    def set_custom_field_value(custom_field_id, text_value)
+      item = { "text": text_value }
+      payload = { value: item }
+      slug_id = short_url.split('/').last
+      client.put("/cards/#{slug_id}/customField/#{custom_field_id}/item", payload)
+    end
+
     # Retrieve a list of attachments
     def attachments
       attachments = Attachment.from_response client.get("/cards/#{id}/attachments")
